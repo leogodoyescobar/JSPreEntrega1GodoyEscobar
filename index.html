@@ -6,6 +6,56 @@
     <title>Document</title>
 </head>
 <body>
+    <section>
+        <h1>Calculadora prestamo</h1>
+        <div>
+            <label>Nombre</label>
+            <input type="text" name="nombre" id="inputnombre" required>
+        </div>
+        <div>
+            <label>DNI</label>
+            <input type="number" name="dni" id="inputdni" required>
+        </div>
+        <div>
+            <label>Monto solicitado</label>
+            <input type="number" name="monto" id="inputmonto" required>
+        </div>
+        <div>
+            <label>Cuotas</label>
+            <select name="cuotas" id="cuotas">
+                <option value=1>1</option>        
+                <option value=3>3</option>        
+                <option value=6>6</option>
+                <option value=9>9</option>
+                <option value=12>12</option>        
+            </select>
+        </div>
+        <div>
+            <button id="btncalcular">Calcular</button>
+        </div>
+    </section>
+    <section>
+        <div>
+            <h2>total a pagar</h2>
+            <span id="spandeuda"></span></p>
+            <button id="btnsolicitar">Solicitar prestamo</button>
+        </div>
+    </section>    
+    <section>
+        <div>
+            <h2>Lista clientes</h2>
+        </div>
+        <div>
+            <ul id="lista-clientes">
+
+            </ul>
+        </div>
+        <div>
+            <button id="btncargarlista">Cargar</button>
+        </div>
+    </section>
+
+
     <script src="js/Creditos.js"></script>
 </body>
 </html>

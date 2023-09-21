@@ -13,159 +13,110 @@ class cliente{
         console.log("-------------------------------");
     }
 }
-// creacion lista de clientes //
+// creacion lista de clientes predefinida//
 let listaclientes = [];
 
-alert("Inicio de carga de clientes");
-for ( let i=0 ; i < 3 ; i = i + 1){    
-    let nombre = prompt("Ingrese nombre de cliente");
-    let dni = prompt("Ingrese dni de cliente sin puntos(solo numeros)");
-    let deuda = prompt("Ingrese deuda de cliente");
-    if(!isNaN(dni) && !isNaN(deuda)){
-        let clientes = new cliente(nombre,dni,deuda);
-        listaclientes.push(clientes);
-    }
-    else{
-        console.log("Datos ingresados incorrectos")
-        continue
-    }
-}
+listaclientes.push( new cliente("leonel", 33796058, 10000));
+listaclientes.push( new cliente("pepe", 35886668, 5000));
+listaclientes.push( new cliente("pipo", 36777888, 20000));
+listaclientes.push( new cliente("cleto", 34666789, 0));
 
-alert("Carga de datos finalizada");
 
 // funcion calculo intereses //
-function calculoDeCredito( monto, cuotas){
-    monto = parseFloat(monto);
-    cuotas = parseInt(cuotas);
-    
-    let credito = 0;
+var inputnombre = document.getElementById("inputnombre");
+var inputdni = document.getElementById("inputdni");
+var inputmonto = document.getElementById("inputmonto");
+var cuotas = document.getElementById("cuotas");
 
-    if( cuotas == 1 && monto > 0){
-        credito = monto + (monto * 0.1);
-        errorcuotas = "ok2";
+// cuotas.addEventListener("change", function () {
+//     var valorcuotas = cuotas.value;
+//     console.log(valorcuotas);
+// });
+function calculoDeCredito(){
+    var inputmonto = document.getElementById("inputmonto");
+    var resultadoSpan = document.getElementById("spandeuda");
+    let monto = parseInt(inputmonto.value);
+    let cuotas2 = parseInt(cuotas.value);
+
+    if (cuotas2 == 1){
+        var credito = monto * 1.1;     
+        resultadoSpan.textContent = parseInt(credito);
         return credito
     }
-    else if( cuotas == 3 && monto >0){
-        credito = monto + (monto * 0.2);
-        errorcuotas = "ok2";
+    else if (cuotas2 == 3){
+        var credito = monto * 1.2;
+        resultadoSpan.textContent = parseInt(credito);
         return credito
     }
-    else if( cuotas == 6 && monto >0){
-        credito = monto + (monto * 0.4);
-        errorcuotas = "ok2";
+    else if (cuotas2 == 6){
+        let credito = monto * 1.4;
+        resultadoSpan.textContent = parseInt(credito);
         return credito
     }
-    else if( cuotas == 9 && monto >0){
-        credito = monto + (monto * 0.6);
-        errorcuotas = "ok2";
+    else if (cuotas2 == 9){
+        let credito = monto * 1.6;
+        resultadoSpan.textContent = parseInt(credito);
         return credito
     }
-    else if( cuotas == 12 && monto >0){
-        credito = monto + (monto * 0.85);
-        errorcuotas = "ok2";
-        return credito
+    else if (cuotas2 == 12){
+        let credito = monto * 1.85;
+        resultadoSpan.textContent = parseInt(credito);
+        return credito     
     }
     else{
-        errorcuotas = "error";
-        return errorcuotas
+        console.log("seleccione cuotas");
     }
-
+    // resultadoSpan.textContent = monto * cuotas;    
+    // console.log(monto * cuotas);
 }
+let btncalcular = document.getElementById("btncalcular");
+btncalcular.addEventListener("click", calculoDeCredito)
+
+// alta cliente nuevo
+var btnsolicitar = document.getElementById("btnsolicitar");
+var resultadoSpan = document.getElementById("spandeuda");
+btnsolicitar.addEventListener("click", function () {
+	nombre = inputnombre.value;
+	dni = inputdni.value;
+	deuda = resultadoSpan.textContent;
+	let clientes = new cliente(nombre,dni,deuda);
+    listaclientes.push(clientes);
+
+    var listaclientesjson = JSON.stringify(listaclientes);
+    localStorage.setItem("arrclientesjson", listaclientesjson);
+
+	inputnombre.value ="";
+	inputdni.value ="";
+	inputmonto.value ="";
+});
+
+// funcion cargar listaclientes desde localstorage
+function cargarlista(){
+    var listaClientesUl = document.getElementById("lista-clientes");
+    var arrclientesjsonrec = localStorage.getItem("arrclientesjson");
+    var listaclientesrec = JSON.parse(arrclientesjsonrec);
+
+    listaclientesrec.forEach(function (cliente) {
+        // Crear un elemento li para cada cliente
+        var li = document.createElement("li");
+    
+        // Asignar el contenido del cliente al elemento li
+        li.textContent = `Nombre: ${cliente.nombre}, DNI: ${cliente.dni}, Deuda: ${cliente.deuda}`;
+    
+        // Agregar el elemento li a la lista ul
+        listaClientesUl.appendChild(li);        
+    });
+}
+let btncargarlista = document.getElementById("btncargarlista");
+btncargarlista.addEventListener("click", cargarlista)
+
+
+
 // funcion buscar dni //
-function buscardni(cliente){
-	return cliente.dni == nuevodni
-}
-
-// inicio al sistema //
-console.log("Bienvenido/a a Creditos Tales");
-console.log("Clientes actuales:");
-console.log("");
+// function buscardni(cliente){
+// 	return cliente.dni == nuevodni
+// }
 
 for( let clientes of listaclientes){
     clientes.get_datos();
-}
-deudor = "no";
-let cuotas = 0;
-let errorcuotas = "inicio";
-let errormonto = "si";
-
-let nuevodni = prompt("Bienvenido Ingrese su dni sin puntos(solo numeros)");
-let resultado_find = listaclientes.find( buscardni);
-
-if(resultado_find != undefined){
-    alert("Usted debe saldar credito vigente antes de solicitar otro");
-    console.log("Usted debe saldar credito vigente antes de solicitar otro");
-    console.log(resultado_find);
-    monto = "FIN";
-    deudor = "si";
-}
-
-
-while( errormonto == "si" && resultado_find == undefined){
-    alert("Usted es cliente nuevo debe registrar sus datos");
-    console.log("Usted es cliente nuevo debe registrar sus datos:");
-    nombre = prompt("Bienvenido Ingrese su nombre");
-    dni = prompt("Ingrese su dni nuevamente sin puntos(solo numeros)");
-    monto = prompt("Ingrese el monto del credito a solicitar o FIN para cancelar");
-    deuda = monto;
-    if(!isNaN(dni) && !isNaN(deuda)){
-        let clientes = new cliente(nombre,dni,deuda);
-        listaclientes.push(clientes);
-        console.log("Datos registrados correctamente");
-        console.log("-------------------------------");
-        break
-    }
-	else if(monto =="FIN"){
-        break
-    }
-	else{
-		errormonto = "si";
-        alert("error al ingresar el monto vuelva a intentarlo");
-		console.log("error al ingresar el monto vuelva a intentarlo");
-		continue
-    }
-}
-
-
-while( monto != "FIN"){
-    if( monto != "FIN" && errorcuotas == "inicio"){
-        cuotas = prompt("Ingrese cantidad de cuotas: 1, 3, 6, 9, 12");
-        errorcuotas = "ok"
-        continue
-    }
-    else if( monto != "FIN" && errorcuotas == "ok"){
-        let creditoFinal = calculoDeCredito( monto , cuotas);
-        continue        
-    }
-    else if( monto != "FIN" && errorcuotas =="ok2"){
-        alert("Credito aprobado, gracias por visitar Creditos Tales");
-        let creditoFinal = calculoDeCredito( monto , cuotas);
-        console.log("Datos del credito solicitado:");
-        console.log("cliente:", nombre);
-        console.log("Solicito:", monto);
-        console.log("Cuotas:", cuotas);
-        console.log("Monto a saldar:", creditoFinal);
-        console.log("Gracias por visitar Creditos Tales");
-        break
-    }
-    else if( errorcuotas == "error"){
-        console.log("Ingrese una cantidad de cuotas correcta");
-        errorcuotas = "inicio";
-        continue
-    }
-}
-// lista de clientes actualizada al finalizar //
-if (deudor != "si"){
-    console.log("-------------------------------");
-    console.log("Clientes actuales:");
-    console.log();
-    
-    for( let clientes of listaclientes){
-        clientes.get_datos();
-    }
-}
-
-if( monto == "FIN"){
-    console.log("-------------------------------");
-    console.log("Gracias por visitar Creditos Tales");
 }
