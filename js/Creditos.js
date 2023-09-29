@@ -3,15 +3,7 @@ class cliente{
         this.nombre = nombre;
         this.dni = dni;
         this.deuda = deuda;
-    }
-
-    get_datos(){
-        console.log("Cliente registrado");
-        console.log("Nombre: ", this.nombre);
-        console.log("DNI: ", this.dni);
-        console.log("Deuda: ", this.deuda);
-        console.log("-------------------------------");
-    }
+    }    
 }
 // creacion lista de clientes predefinida//
 let listaclientes = [];
@@ -66,8 +58,6 @@ function calculoDeCredito(){
     else{
         console.log("seleccione cuotas");
     }
-    // resultadoSpan.textContent = monto * cuotas;    
-    // console.log(monto * cuotas);
 }
 let btncalcular = document.getElementById("btncalcular");
 btncalcular.addEventListener("click", calculoDeCredito)
@@ -92,18 +82,24 @@ btnsolicitar.addEventListener("click", function () {
 
 // funcion cargar listaclientes desde localstorage
 function cargarlista(){
+
+    
+
     var listaClientesUl = document.getElementById("lista-clientes");
     var arrclientesjsonrec = localStorage.getItem("arrclientesjson");
     var listaclientesrec = JSON.parse(arrclientesjsonrec);
 
+    var element = document.getElementById("lista-clientes");
+    while (element.firstChild) {
+    element.removeChild(element.firstChild);
+    }
+
     listaclientesrec.forEach(function (cliente) {
-        // Crear un elemento li para cada cliente
+
         var li = document.createElement("li");
     
-        // Asignar el contenido del cliente al elemento li
         li.textContent = `Nombre: ${cliente.nombre}, DNI: ${cliente.dni}, Deuda: ${cliente.deuda}`;
     
-        // Agregar el elemento li a la lista ul
         listaClientesUl.appendChild(li);        
     });
 }
@@ -116,7 +112,3 @@ btncargarlista.addEventListener("click", cargarlista)
 // function buscardni(cliente){
 // 	return cliente.dni == nuevodni
 // }
-
-for( let clientes of listaclientes){
-    clientes.get_datos();
-}
