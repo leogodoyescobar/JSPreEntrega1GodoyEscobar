@@ -65,19 +65,24 @@ btncalcular.addEventListener("click", calculoDeCredito)
 // alta cliente nuevo
 var btnsolicitar = document.getElementById("btnsolicitar");
 var resultadoSpan = document.getElementById("spandeuda");
+
+
 btnsolicitar.addEventListener("click", function () {
-	nombre = inputnombre.value;
-	dni = inputdni.value;
-	deuda = resultadoSpan.textContent;
-	let clientes = new cliente(nombre,dni,deuda);
-    listaclientes.push(clientes);
+    if (inputnombre.value != "" && inputdni.value != "" && inputmonto.value != ""){
+        nombre = inputnombre.value;
+        dni = inputdni.value;
+        deuda = resultadoSpan.textContent;
+        let clientes = new cliente(nombre,dni,deuda);
+        listaclientes.push(clientes);
 
-    var listaclientesjson = JSON.stringify(listaclientes);
-    localStorage.setItem("arrclientesjson", listaclientesjson);
+        var listaclientesjson = JSON.stringify(listaclientes);
+        localStorage.setItem("arrclientesjson", listaclientesjson);
 
-	inputnombre.value ="";
-	inputdni.value ="";
-	inputmonto.value ="";
+        inputnombre.value ="";
+        inputdni.value ="";
+        inputmonto.value ="";
+        resultadoSpan.textContent ="";
+    }
 });
 
 // funcion cargar listaclientes desde localstorage
