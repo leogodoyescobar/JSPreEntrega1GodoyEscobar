@@ -96,8 +96,9 @@ btnsolicitar.addEventListener("click", function () {
     else{
         Swal.fire({
             icon: 'error',
-            title: 'Oops...',
+            title: 'ERROR',
             text: 'Ingrese correctamente todos los campos solicitados',
+            confirmButtonColor: '#6dc7f1',
             footer: '<p>Si tiene dudas puede solicitar presupuesto por email</p>'
         });
     }
@@ -142,8 +143,6 @@ fetch("https://dolarapi.com/v1/dolares/blue")
     .then( response => response.json() )
     .then( data =>{
         console.log(data);
-        // var blue = document.getElementById("dolarblue");         
-        // blue.textContent = `Precio dolar blue Compra: ${data.compra} Venta: ${data.venta}`;
         document.getElementById("dolarblue").innerHTML = `<p>Precio dolar blue:</p>
                                                         <p>Compra: ${data.compra}</p>
                                                         <p>Venta: ${data.venta}</p>`;
