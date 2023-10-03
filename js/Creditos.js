@@ -78,11 +78,30 @@ btnsolicitar.addEventListener("click", function () {
         var listaclientesjson = JSON.stringify(listaclientes);
         localStorage.setItem("arrclientesjson", listaclientesjson);
 
+        Toastify({
+            text:`Prestamo aprobado, gracias por elegirnos ${nombre}`,
+            duration:3500,
+            position:"center",
+            style:{
+                fontFamily:"Roboto"
+            }
+        }).showToast();
+
         inputnombre.value ="";
         inputdni.value ="";
         inputmonto.value ="";
         resultadoSpan.textContent ="";
+        
     }
+    else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Ingrese correctamente todos los campos solicitados',
+            footer: '<p>Si tiene dudas puede solicitar presupuesto por email</p>'
+        });
+    }
+
 });
 
 // funcion cargar listaclientes desde localstorage
@@ -112,8 +131,20 @@ let btncargarlista = document.getElementById("btncargarlista");
 btncargarlista.addEventListener("click", cargarlista)
 
 
-
 // funcion buscar dni //
 // function buscardni(cliente){
 // 	return cliente.dni == nuevodni
 // }
+
+
+
+fetch("https://dolarapi.com/v1/dolares/blue")
+    .then( response => response.json() )
+    .then( data =>{
+        console.log(data);
+        // var blue = document.getElementById("dolarblue");         
+        // blue.textContent = `Precio dolar blue Compra: ${data.compra} Venta: ${data.venta}`;
+        document.getElementById("dolarblue").innerHTML = `<p>Precio dolar blue:</p>
+                                                        <p>Compra: ${data.compra}</p>
+                                                        <p>Venta: ${data.venta}</p>`;
+    })
