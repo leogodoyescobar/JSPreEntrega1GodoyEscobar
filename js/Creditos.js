@@ -30,33 +30,50 @@ function calculoDeCredito(){
     let monto = parseInt(inputmonto.value);
     let cuotas2 = parseInt(cuotas.value);
 
-    if (cuotas2 == 1){
-        var credito = monto * 1.1;     
-        resultadoSpan.textContent = parseInt(credito);
-        return credito
-    }
-    else if (cuotas2 == 3){
-        var credito = monto * 1.2;
-        resultadoSpan.textContent = parseInt(credito);
-        return credito
-    }
-    else if (cuotas2 == 6){
-        let credito = monto * 1.4;
-        resultadoSpan.textContent = parseInt(credito);
-        return credito
-    }
-    else if (cuotas2 == 9){
-        let credito = monto * 1.6;
-        resultadoSpan.textContent = parseInt(credito);
-        return credito
-    }
-    else if (cuotas2 == 12){
-        let credito = monto * 1.85;
-        resultadoSpan.textContent = parseInt(credito);
-        return credito     
+    if (inputnombre.value != "" && inputdni.value != "" && inputmonto.value != ""){
+        if (cuotas2 == 1){
+            var credito = monto * 1.1;     
+            resultadoSpan.textContent = parseInt(credito);
+            return credito
+        }
+        else if (cuotas2 == 3){
+            var credito = monto * 1.2;
+            resultadoSpan.textContent = parseInt(credito);
+            return credito
+        }
+        else if (cuotas2 == 6){
+            let credito = monto * 1.4;
+            resultadoSpan.textContent = parseInt(credito);
+            return credito
+        }
+        else if (cuotas2 == 9){
+            let credito = monto * 1.6;
+            resultadoSpan.textContent = parseInt(credito);
+            return credito
+        }
+        else if (cuotas2 == 12){
+            let credito = monto * 1.85;
+            resultadoSpan.textContent = parseInt(credito);
+            return credito     
+        }
+        else{
+            Swal.fire({
+                icon: 'error',
+                title: 'ERROR',
+                text: 'Ingrese correctamente todos los campos solicitados',
+                confirmButtonColor: '#6dc7f1',
+                footer: '<p>Si tiene dudas puede solicitar presupuesto por email</p>'
+            });
+        }
     }
     else{
-        console.log("seleccione cuotas");
+        Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'Ingrese correctamente todos los campos solicitados',
+            confirmButtonColor: '#6dc7f1',
+            footer: '<p>Si tiene dudas puede solicitar presupuesto por email</p>'
+        });
     }
 }
 let btncalcular = document.getElementById("btncalcular");
@@ -102,7 +119,6 @@ btnsolicitar.addEventListener("click", function () {
             footer: '<p>Si tiene dudas puede solicitar presupuesto por email</p>'
         });
     }
-
 });
 
 // funcion cargar listaclientes desde localstorage
